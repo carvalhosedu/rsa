@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Home</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding id="rsa">
+  <h3>Criptografia RSA</h3>
+  <ion-item>
+    <ion-label color="primary" fixed>Digite seu P:</ion-label>
+    <ion-input id="p" type="number" [(ngModel)]="rsa.p"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label color="primary" fixed>Digite seu Q:</ion-label>
+    <ion-input id="q" type="number" [(ngModel)]="rsa.q"></ion-input>
+  </ion-item>
+
+  <h5 color="primary">Digite sua mensagem:</h5>
+  <ion-item>
+    <ion-input id="msg" type="text" [(ngModel)]="rsa.msg"></ion-input>
+  </ion-item>
+
+  <button ion-button block color="primary" class="marginTop" (click)="criptografar(rsa)">Codificar/Descodificar</button>
+</ion-content>
