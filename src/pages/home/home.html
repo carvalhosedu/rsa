@@ -24,5 +24,17 @@
     <ion-input id="msg" type="text" [(ngModel)]="rsa.msg"></ion-input>
   </ion-item>
 
+  <ion-card>
+
+    <ion-card-header>
+      Criptografada
+    </ion-card-header>
+
+    <ion-card-content>
+      {{ criptografadaMSG }}
+    </ion-card-content>
+
+  </ion-card>
+
   <button ion-button block color="primary" class="marginTop" (click)="criptografar(rsa)">Codificar/Descodificar</button>
 </ion-content>

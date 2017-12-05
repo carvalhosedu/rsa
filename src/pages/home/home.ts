@@ -11,11 +11,13 @@ export class HomePage {
   rsa = {} as Rsa;
   alfabeto = [];
   w = '';
-  mensagem = [];
+  contador = 0;
   a = 0;
   b = 10;
   n = 1;
-  z = 1;
+  lambida = 3;
+  criptografada = [];
+  criptografadaMSG = '';
 
   constructor(public navCtrl: NavController) {
 
@@ -60,6 +62,10 @@ export class HomePage {
     this.alfabeto[35] = 'Z';
     this.alfabeto[36] = ' ';
 
+    this.n = this.rsa.p * this.rsa.q;
+    this.contador = 0;
+    this.criptografadaMSG = '';
+
     for (this.a = 0; this.a < this.rsa.msg.length; this.a++) {
       // a = contador inicia 0
       // w = letra
@@ -70,34 +76,23 @@ export class HomePage {
       for (this.b = 10; this.b < this.alfabeto.length; this.b++) {
         // b = contador inicia 0
         // w = letra
-
         if(this.rsa.msg[this.a].toUpperCase() === this.alfabeto[this.b]){
-          this.n = this.rsa.p * this.rsa.q;
-          this.z = (this.rsa.p - 1) * (this.rsa.q - 1);
-          console.log(this.b);
-          console.log(this.n);
+          this.criptografada[this.contador] = (this.b ** this.lambida) % this.n;
+          this.contador = this.contador + 1;
         }
       }
-
     }
 
-    // for (this.a = 0; this.a < this.rsa.msg.length; this.a++) {
-    //   console.log('-----------------a-------------------');
-    //   console.log(this.a);
-    //
-    //   this.w = this.rsa.msg[this.a];
-    //   console.log('-----------------w-------------------');
-    //   console.log(this.w);
-    //
-    //   this.mensagem[this.a] = this.w[0].toUpperCase() + this.w.slice(1);
-    // }
-    //
-    // console.log('-----------------MENS-------------------');
-    // console.log(this.mensagem);
-    //
-    // // for (let i in this.alfabeto) {
-    // //   console.log(i); // "0", "1", "2",
-    // // }
+    for (this.a = 0; this.a < this.criptografada.length; this.a++) {
+      if(this.a < this.criptografada.length - 1){
+        this.criptografadaMSG = this.criptografadaMSG + this.criptografada[this.a] + ' - ';
+      } else {
+        this.criptografadaMSG = this.criptografadaMSG + this.criptografada[this.a];
+      }
+    }
+    console.log(this.criptografada);
+    console.log(this.criptografadaMSG);
+
     return;
   }
 
