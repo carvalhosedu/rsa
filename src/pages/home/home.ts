@@ -17,7 +17,11 @@ export class HomePage {
   n = 1;
   lambida = 3;
   criptografada = [];
+  desCriptografada = '';
   criptografadaMSG = '';
+  d = 0;
+  modTemp = 0;
+  descTemp = 0;
 
   constructor(public navCtrl: NavController) {
 
@@ -65,6 +69,9 @@ export class HomePage {
     this.n = this.rsa.p * this.rsa.q;
     this.contador = 0;
     this.criptografadaMSG = '';
+    this.desCriptografada = '';
+    this.d = 0;
+    this.descTemp = 0;
 
     for (this.a = 0; this.a < this.rsa.msg.length; this.a++) {
       // a = contador inicia 0
@@ -83,15 +90,35 @@ export class HomePage {
       }
     }
 
+    this.modTemp = (this.rsa.p - 1) * (this.rsa.q - 1);
+
+    for (this.b = 0; this.b < 100; this.b++) {
+      this.d = (3 * this.b) % this.modTemp;
+
+      if(this.d === 1){
+        this.d = this.b;
+        this.b = 1000;
+      }
+    }
+
     for (this.a = 0; this.a < this.criptografada.length; this.a++) {
+
       if(this.a < this.criptografada.length - 1){
         this.criptografadaMSG = this.criptografadaMSG + this.criptografada[this.a] + ' - ';
       } else {
         this.criptografadaMSG = this.criptografadaMSG + this.criptografada[this.a];
       }
+
+      this.descTemp = (this.criptografada[this.a] ** this.d) % this.n;
+
+      if(this.a < this.criptografada.length - 1){
+        this.desCriptografada = this.desCriptografada + this.descTemp + ' - ';
+      } else {
+        this.desCriptografada = this.desCriptografada + this.descTemp;
+      }
+
+
     }
-    console.log(this.criptografada);
-    console.log(this.criptografadaMSG);
 
     return;
   }
